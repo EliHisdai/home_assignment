@@ -13,7 +13,7 @@ export class RequestTrackerMiddleware implements NestMiddleware {
   }
 
   async use(req: Request, res: Response, next: NextFunction): Promise<void> {
-    this.logService.log(`Request: ${req.method} ${req.path}`);
+    this.logService.log(`Request: ${req.method} ${req.baseUrl}`);
     next();
   }
 }

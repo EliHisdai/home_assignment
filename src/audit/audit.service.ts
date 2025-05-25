@@ -34,7 +34,7 @@ export class AuditService {
         if (existingLog) {
           // Update counts
           existingLog.patients += entityType === ENTITY_NAMES.PATIENT ? 1 : 0;
-          existingLog.sample += entityType === ENTITY_NAMES.SAMPLE ? 1 : 0;
+          existingLog.samples += entityType === ENTITY_NAMES.SAMPLE ? 1 : 0;
           existingLog.timestamp = new Date().toISOString();
         } else {
           // Create new log

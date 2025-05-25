@@ -9,15 +9,20 @@ import { PaginatedResult } from '../common/dto/pagination.dto';
 import { EntityNotFoundException } from '../common/exceptions/entity-not-found.exception';
 import { DATABASE, ENTITY_NAMES } from 'src/common/constants';
 import { AuditService } from 'src/audit/audit.service';
+import { PatientsService } from 'src/patients/patients.service';
 
 @Injectable()
 export class SamplesService {
   constructor(
     private readonly databaseService: JsonDatabaseService,
     private readonly auditService: AuditService,
+    private readonly patientService: PatientsService, // Assuming this is used to validate patient IDs
   ) {}
 
   async create(createSampleDto: CreateSampleDto): Promise<Sample> {
+    //verify patient exists
+    await this.patientService.findOne(createSampleDto.patientId);
+
     const sample = this.databaseService.addItem<Sample>(DATABASE.COLLECTIONS.SAMPLES, createSampleDto);
 
     return sample;
